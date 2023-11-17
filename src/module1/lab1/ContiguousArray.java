@@ -1,54 +1,53 @@
 package module1.lab1;
 
-import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ContiguousArray {
 
-
     //??
     public static int findMaxLength(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
 
-        int count = 0;
-
+        //** Converting all 0 to -1 ->
         for (int i = 0; i < nums.length; i++) {
-            int zeros = 0, ones = 0;
+            if (nums[i] == 0) nums[i] = -1;
+        }
 
-            for (int j = i; j < nums.length; j++) {
-                if (nums[j] == 0) {
-                    zeros++;
-                } else {
-                    ones++;
-                }
-                if (zeros == ones) {
-                    count = Math.max(count, j - i + 1);
-                }
+        int sum = 0;
+        int max = 0;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (map.containsKey(sum)) {
+                int last = map.get(sum);
+                max = Math.max(max, i - last);
+            } else {
+                map.put(sum, i);
             }
         }
 
-        return count;
+        return max;
     }
 
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
 
-        ArrayList<Integer> numsList = new ArrayList<>();
+        String[] inputArr = input.split(" ");
+        int[] numbers = new int[inputArr.length];
 
-        while (scanner.hasNextInt()) {
-            int num = scanner.nextInt();
-            numsList.add(num);
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = Integer.parseInt(inputArr[i]);
         }
 
-        int[] nums = new int[numsList.size()];
-        for (int i = 0; i < numsList.size(); i++) {
-            nums[i] = numsList.get(i);
-        }
-
-        int maxLength = findMaxLength(nums);
-
-        System.out.println(maxLength);
-
+        System.out.println(findMaxLength(numbers));
     }
 }

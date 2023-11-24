@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Cookies {
 
     //??
-    public static int minStepsToTargetSweetness(int[] candies, int targetSweetness) {
+    public static int cookies(int[] candies, int targetSweetness) {
 
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
         for (int candy : candies) {
@@ -15,14 +15,15 @@ public class Cookies {
 
         int steps = 0;
 
-        while (minHeap.peek() < targetSweetness) {
+        while (!minHeap.isEmpty() && minHeap.peek() < targetSweetness) {
 
             int leastSweet = minHeap.poll();
-            int secondLeastSweet = minHeap.poll();
 
-            int combinedSweetness = leastSweet + 2 * secondLeastSweet;
-
-            minHeap.offer(combinedSweetness);
+            if (!minHeap.isEmpty()) {
+                int secondLeastSweet = minHeap.poll();
+                int combinedSweetness = leastSweet + 2 * secondLeastSweet;
+                minHeap.offer(combinedSweetness);
+            }
 
             steps++;
         }
@@ -34,15 +35,17 @@ public class Cookies {
         Scanner scanner = new Scanner(System.in);
 
         int targetSweetness = scanner.nextInt();
+        scanner.nextLine();
 
-        int n = scanner.nextInt();
+        String[] inputLine = scanner.nextLine().split(" ");
+        int n = inputLine.length;
         int[] candies = new int[n];
 
         for (int i = 0; i < n; i++) {
-            candies[i] = scanner.nextInt();
+            candies[i] = Integer.parseInt(inputLine[i]);
         }
 
-        int result = minStepsToTargetSweetness(candies, targetSweetness);
+        int result = cookies(candies, targetSweetness);
         System.out.println(result);
     }
 }

@@ -1,55 +1,35 @@
 package module4.lab1;
 
 import java.util.Scanner;
+import java.util.Stack;
 
 public class ClumsyFactorial {
 
     //??
     public static int clumsy(int n) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(n);
 
-        if (n <= 2) {
-            return n;
-        }
-
-        int[] stack = new int[]{n};
-        n--;
-
-        String[] operations = new String[]{"*", "//", "+", "-"};
-        int opIndex = 0;
-
-        while (n > 0) {
-            if (operations[opIndex].equals("*")) {
-                stack[stack.length - 1] *= n;
-            } else if (operations[opIndex].equals("//")) {
-                stack[stack.length - 1] /= n;
-            } else if (operations[opIndex].equals("+")) {
-                stack = append(stack, n);
+        int idx = 0;
+        for (int i = n - 1; i > 0; --i) {
+            if (idx % 4 == 0) {
+                stack.push(stack.pop() * i);
+            } else if (idx % 4 == 1) {
+                stack.push(stack.pop() / i);
+            } else if (idx % 4 == 2) {
+                stack.push(i);
             } else {
-                stack = append(stack, -n);
+                stack.push(-i);
             }
-
-            n--;
-            opIndex = (opIndex + 1) % 4;
+            ++idx;
         }
 
-        return sum(stack);
-    }
-
-
-    public static int[] append(int[] arr, int element) {
-        int[] newArr = new int[arr.length + 1];
-        System.arraycopy(arr, 0, newArr, 0, arr.length);
-        newArr[arr.length] = element;
-        return newArr;
-    }
-
-
-    public static int sum(int[] arr) {
-        int sum = 0;
-        for (int num : arr) {
-            sum += num;
+        int result = 0;
+        while (!stack.isEmpty()) {
+            result += stack.pop();
         }
-        return sum;
+
+        return result;
     }
 
 

@@ -1,0 +1,43 @@
+Number of Provinces
+
+The problem is to determine the number of provinces in a given set of cities. Each city can be directly or indirectly connected to other cities.
+If city A is directly connected to city B, and city B is directly connected to city C, then city A is indirectly connected to city C.
+A province is a group of cities that are directly or indirectly connected to each other, and there are no other cities outside of this group.
+
+You are given a matrix isConnected, where isConnected[i][j] is equal to 1 if the ith city and the jth city are directly connected, and 0 otherwise.
+The task is to find the total number of provinces present in the given matrix.
+
+
+
+Example
+
+INPUT
+[[1,1,0],[1,1,0],[0,0,1]]
+OUTPUT
+2
+Exercise-1
+
+Input :
+3
+1 1 0
+1 1 0
+0 0 1
+
+Note:
+Line 1 : number of input line
+Line 2 : Connected cities
+
+Output :
+2
+
+
+Exercise-2
+
+Input:
+3
+1 0 0
+0 1 0
+0 1 1
+
+Output:
+3

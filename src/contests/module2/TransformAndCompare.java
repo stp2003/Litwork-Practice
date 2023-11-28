@@ -2,7 +2,7 @@ package contests.module2;
 
 import java.util.Scanner;
 
-public class NumberOfProvinces {
+public class TransformAndCompare {
 
     //??
     public static boolean canTransform(String start, String end) {
